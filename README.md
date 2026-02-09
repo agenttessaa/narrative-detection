@@ -31,8 +31,11 @@ X API (7-day search)                        GitHub API (30-day repos)
         ├── Cross-source correlation (scaled signal bonus)
         ├── Source diversity analysis (unique authors)
         ├── Stage classification (pre-narrative → peak)
-        ├── Confidence scoring (0-95%)
-        └── Build idea generation (3-5 per narrative)
+        └── Confidence scoring (0-95%)
+                │
+        LLM Synthesis (Claude)
+        ├── Narrative explanations from raw signals
+        └── 3-5 build ideas per narrative
                 │
         Web Output
         ├── Static HTML page
@@ -77,6 +80,7 @@ Narratives present in BOTH X and GitHub get a scaled bonus based on the strength
 ### Prerequisites
 - [Bun](https://bun.sh) runtime
 - X/Twitter API credentials (Basic tier, OAuth 1.0a)
+- Optional: Anthropic API key (enables LLM-powered narrative explanations)
 - Optional: GitHub token (increases rate limits from 10 to 30 req/min)
 
 ### Install
@@ -101,7 +105,9 @@ Create credential files (paths are configurable in `src/run.ts`):
 }
 ```
 
-2. (Optional) GitHub token at `credentials/github-credentials.json`:
+2. (Optional) Anthropic API key for LLM synthesis — set `ANTHROPIC_API_KEY` env var or create `credentials/anthropic-api-key.txt`. Without it, the tool still works using rule-based explanations and build ideas.
+
+3. (Optional) GitHub token at `credentials/github-credentials.json`:
 ```json
 { "token": "ghp_..." }
 ```
@@ -135,6 +141,7 @@ narrative-scope/
 │   ├── x-scanner.ts       # X/Twitter signal collection
 │   ├── github-scanner.ts  # GitHub repo discovery
 │   ├── aggregator.ts      # Cross-source signal correlation
+│   ├── llm-synthesis.ts   # Claude-powered narrative explanations + build ideas
 │   ├── web-output.ts      # HTML page generation
 │   └── run.ts             # Main pipeline runner
 ├── data/                  # Scan results (gitignored)
@@ -148,7 +155,9 @@ narrative-scope/
 
 **github-scanner.ts**: Searches GitHub for new repos with Solana-related keywords (created in last 30 days). Filters spam/airdrops, deduplicates, clusters by development category.
 
-**aggregator.ts**: The core algorithm. Aligns X and GitHub topic clusters, computes composite signal scores, classifies narrative stages, generates confidence levels, and produces build ideas for each detected narrative.
+**aggregator.ts**: The core algorithm. Aligns X and GitHub topic clusters, computes composite signal scores, classifies narrative stages, generates confidence levels, and produces initial build ideas for each detected narrative.
+
+**llm-synthesis.ts**: Sends each detected narrative's raw signal data to Claude (Sonnet 4.5) for richer explanations and more creative, context-aware build ideas. Falls back to rule-based output if the API is unavailable.
 
 **web-output.ts**: Renders detected narratives as a responsive, dark-themed HTML page. Each narrative shows metrics, top signals (tweets + repos), key terms, and actionable build ideas with difficulty ratings.
 
@@ -226,7 +235,6 @@ The architecture is modular — each data source is an independent scanner that 
 
 - **Add data sources**: Create a new scanner following the pattern in x-scanner.ts. Export a scan function returning clustered data, add alignment mapping in aggregator.ts
 - **On-chain data**: Add Helius/Solana RPC scanner for program deployment tracking, TVL changes, new token launches
-- **LLM synthesis**: Replace rule-based `generateBuildIdeas()` with an LLM call for more creative, context-aware ideas
 - **Automated refresh**: Run as a cron job for fortnightly updates with historical trend tracking
 - **Discord/forum monitoring**: Add scanners for Solana Discord, governance forums, research blogs
 

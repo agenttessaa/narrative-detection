@@ -4,10 +4,18 @@
  * narrative explanations and build ideas.
  */
 
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import type { DetectedNarrative, BuildIdea } from "./aggregator";
 
-const API_KEY = readFileSync("agent/vault/anthropic/api-key.txt", "utf-8").trim();
+function getApiKey(): string {
+  if (process.env.ANTHROPIC_API_KEY) return process.env.ANTHROPIC_API_KEY;
+  for (const p of ["agent/vault/anthropic/api-key.txt", "credentials/anthropic-api-key.txt"]) {
+    if (existsSync(p)) return readFileSync(p, "utf-8").trim();
+  }
+  throw new Error("No Anthropic API key found. Set ANTHROPIC_API_KEY env var or create credentials/anthropic-api-key.txt");
+}
+
+const API_KEY = getApiKey();
 
 interface SynthesisResult {
   name: string;

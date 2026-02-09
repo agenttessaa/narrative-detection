@@ -49,9 +49,10 @@ async function main() {
   } else {
     // Run X scan
     console.log("Step 1/4: Scanning X for Solana ecosystem signals...");
-    const xCredsPath = "agent/vault/x-credentials.json";
+    const xCredsPath = process.env.X_CREDENTIALS_PATH
+      || (existsSync("credentials/x-credentials.json") ? "credentials/x-credentials.json" : "agent/vault/x-credentials.json");
     if (!existsSync(xCredsPath)) {
-      console.error(`X credentials not found at ${xCredsPath}`);
+      console.error(`X credentials not found. Set X_CREDENTIALS_PATH env var or create credentials/x-credentials.json`);
       process.exit(1);
     }
     xResult = await scanX(xCredsPath, 25);
@@ -62,11 +63,17 @@ async function main() {
     console.log("Step 2/4: Scanning GitHub for new Solana repos...");
     // Check for optional GitHub token
     let ghToken: string | undefined;
-    try {
-      const ghCreds = JSON.parse(readFileSync("agent/vault/github-credentials.json", "utf-8"));
-      ghToken = ghCreds.token;
-    } catch {
-      console.log("  (no GitHub token found, using unauthenticated — slower rate limits)");
+    if (process.env.GITHUB_TOKEN) {
+      ghToken = process.env.GITHUB_TOKEN;
+    } else {
+      for (const p of ["credentials/github-credentials.json", "agent/vault/github-credentials.json"]) {
+        try {
+          const ghCreds = JSON.parse(readFileSync(p, "utf-8"));
+          ghToken = ghCreds.token;
+          break;
+        } catch {}
+      }
+      if (!ghToken) console.log("  (no GitHub token found, using unauthenticated — slower rate limits)");
     }
     ghResult = await scanGitHub(ghToken, 30);
     writeFileSync("narrative-scope/data/github-scan.json", JSON.stringify(ghResult, null, 2));

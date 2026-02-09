@@ -252,7 +252,8 @@ function extractKeyTerms(signals: XSignal[]): string[] {
 
 // CLI entry point
 if (import.meta.main) {
-  const result = await scanX("agent/vault/x-credentials.json");
+  const credsPath = process.env.X_CREDENTIALS_PATH || "credentials/x-credentials.json";
+  const result = await scanX(credsPath);
   console.log(`Scanned ${result.signals.length} tweets across ${result.queries.length} queries`);
   console.log(`\nTopic clusters:`);
   for (const c of result.topicClusters) {
