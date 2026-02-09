@@ -9,7 +9,7 @@
  *   bun narrative-scope/src/run.ts --serve       # start web server on port 3456
  */
 
-setTimeout(() => process.exit(0), 120_000); // 2min hard timeout
+setTimeout(() => process.exit(0), 300_000); // 5min hard timeout
 
 import { scanX } from "./x-scanner";
 import { scanGitHub } from "./github-scanner";

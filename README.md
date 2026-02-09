@@ -86,7 +86,7 @@ Narratives present in BOTH X and GitHub get a scaled bonus based on the strength
 ### Install
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/agenttessaa/narrative-scope.git
 cd narrative-scope
 bun install  # installs twitter-api-v2 dependency
 ```
@@ -161,57 +161,63 @@ narrative-scope/
 
 **web-output.ts**: Renders detected narratives as a responsive, dark-themed HTML page. Each narrative shows metrics, top signals (tweets + repos), key terms, and actionable build ideas with difficulty ratings.
 
-## Detected Narratives (Sample Output)
+## Live Demo
 
-From a Feb 9, 2026 live scan (155 tweets, 181 repos analyzed):
+**Hosted tool:** [http://64.225.63.234:3456/](http://64.225.63.234:3456/)
+
+Interactive HTML dashboard with all detected narratives, signal breakdowns, top tweets/repos, and build ideas. JSON API at `/api.json`.
+
+## Detected Narratives (Latest Output)
+
+From a Feb 9, 2026 live scan (148 tweets, 184 repos analyzed):
 
 | Narrative | Stage | Score | Tweets | Repos | Stars | Confidence |
 |-----------|-------|-------|--------|-------|-------|-----------|
-| AI Agent Economy | Peak | 92 | 43 | 57 | 226 | 95% |
-| Dev Tooling for Solana | Emergence | 91 | 3 | 46 | 249 | 86% |
-| Agent Commerce | Peak | 80 | 20 | 54 | 109 | 95% |
-| Restaking & LSTs | Acceleration | 71 | 7 | 29 | 80 | 81% |
-| Privacy Infrastructure | Acceleration | 66 | 45 | 53 | 41 | 90% |
+| AI Agent Economy | Peak | 91 | 42 | 58 | 240 | 95% |
+| Agent Commerce | Peak | 81 | 19 | 56 | 120 | 95% |
+| Restaking & LSTs | Acceleration | 72 | 7 | 29 | 93 | 81% |
+| Privacy Infrastructure | Acceleration | 67 | 40 | 53 | 41 | 95% |
+| Dev Tooling for Solana | Emergence | 61 | 2 | 47 | 252 | 57% |
 | DePIN Growth | Emergence | 40 | 15 | 2 | 0 | 80% |
 
 **What the stages tell you:**
 - AI Agent Economy and Agent Commerce are at **Peak** — widespread awareness, many unique voices. Still opportunity in infrastructure/tooling but the narrative is mature
-- Dev Tooling scores 91 despite only 3 tweets — that's 249 GitHub stars across 46 new repos. Builders are active, social hasn't caught up yet
-- Privacy is interesting at Acceleration — 45 tweets (most of any narrative) but only 41 stars. Lots of talk, less building. The opportunity is in execution
-- DePIN shows social buzz (15 tweets, 309 avg engagement) but only 2 new repos. Early signal worth watching
+- Dev Tooling scores 61 despite only 2 tweets — that's 252 GitHub stars across 47 new repos. Builders are active, social hasn't caught up yet. This is the kind of signal that matters: developer conviction ahead of social hype
+- Privacy is interesting at Acceleration — 40 tweets but only 41 stars. Lots of talk, less building. The opportunity is in execution
+- DePIN shows social buzz (15 tweets) but only 2 new repos. Early signal worth watching
 
-## Build Ideas (Sample)
+## Build Ideas (Latest)
 
-Each narrative generates 3-5 build ideas with difficulty ratings. Here are highlights from the Feb 9 scan:
+Each narrative generates 3-5 build ideas with difficulty ratings, grounded in the actual signals detected. These aren't generic suggestions — they're derived from what's being discussed and built RIGHT NOW. Here are highlights:
 
-**AI Agent Economy (Peak, Score 92)**
-- Agent Reputation System — on-chain reputation scores for AI agents based on transaction history and peer reviews (medium)
-- Agent Skill Marketplace — agents discover/purchase capabilities as NFTs with version tracking (medium)
-- Multi-Agent Orchestration Framework — coordination layer with escrow payments and dispute resolution (hard)
+**AI Agent Economy (Peak, Score 91)**
+- Agent Credit Scoring Protocol — on-chain reputation tracking agent transaction history and success rates. Signal data shows "credit" as a key term and agents "funding their own keys" (medium)
+- Agent-to-Agent Escrow Service — smart contracts for autonomous agent transactions with dispute resolution based on verifiable outcomes. Agents now managing payments across 700+ markets (medium)
+- Agent Skill Analytics Dashboard — real-time monitoring of the skills marketplace showing capability success rates and ROI (easy)
 
-**Dev Tooling for Solana (Emergence, Score 91)**
-- AI Audit Copilot for Anchor — reviews Anchor programs for vulnerabilities, trained on known Solana exploits (hard)
-- Solana Program Template Generator — CLI that generates production-ready Anchor programs from natural language (medium)
+**Agent Commerce (Peak, Score 81)**
+- Agent Reputation Oracle — onchain reputation scoring based on x402 transaction history and credit repayment. Agents getting autonomous credit lines need trustless creditworthiness assessment (medium)
+- Agent Service Marketplace — decentralized discovery for agent-to-agent services using x402 payments. 56 new repos but no central discovery mechanism (medium)
 
-**Agent Commerce (Peak, Score 80)**
-- x402 Payment Gateway — middleware adding pay-per-use billing to any API using the x402 protocol (medium)
-- Autonomous Service Directory — registry where agents list services with pricing and SLAs (easy)
+**Privacy Infrastructure (Acceleration, Score 67)**
+- Private Payroll Protocol — Solana program using Arcium MPC for DAO payroll that hides individual salaries while proving budget compliance (hard)
+- Privacy Score Dashboard — scores wallets on privacy exposure, suggests remediation using emerging stack (Arcium, GhostWareOS) (medium)
 
-**Privacy Infrastructure (Acceleration, Score 66)**
-- Private DeFi Aggregator — DEX aggregator using Solana's confidential transfer extensions (hard)
-- Confidential DAO Voting — encrypted votes until voting period ends, preventing bandwagon effects (medium)
+**Dev Tooling for Solana (Emergence, Score 61)**
+- Anchor Copilot VSCode Extension — intelligent autocomplete and code generation for Anchor, trained on top Solana programs (medium)
+- Stablecoin Payment SDK — lightweight TypeScript SDK for Solana stablecoin payments with wallet connection and swap routing (easy)
 
-**Restaking & LSTs (Acceleration, Score 71)**
-- LST Yield Optimizer — auto-rotates between liquid staking tokens based on yield and risk (medium)
+**Restaking & LSTs (Acceleration, Score 72)**
+- AI Agent LST Rebalancer — autonomous agent toolkit for managing LST portfolios, monitoring validator performance, auto-rebalancing (medium)
 
 **DePIN Growth (Emergence, Score 40)**
-- Cross-DePIN Data Marketplace — DePIN networks sell data to each other and traditional businesses (medium)
+- DePIN Node Registry SDK — Solana program + TypeScript SDK for registering and verifying physical nodes on-chain with location proofs (medium)
 
 ## Reproduction
 
 ```bash
 # 1. Clone and set up credentials (see Setup above)
-git clone <repo-url> && cd narrative-scope
+git clone https://github.com/agenttessaa/narrative-scope.git && cd narrative-scope
 
 # 2. Run full pipeline (~60-90 seconds)
 bun src/run.ts
