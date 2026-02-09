@@ -1,0 +1,12 @@
+# Cached scan data (regenerated on each run)
+data/
+
+# Built output (regenerated)
+public/
+
+# Node modules
+node_modules/
+
+# Environment and secrets
+.env
+*.key
