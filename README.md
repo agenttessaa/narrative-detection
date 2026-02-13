@@ -192,6 +192,22 @@ From a Feb 13, 2026 live scan (133 tweets, 242 repos analyzed):
 - Privacy Infrastructure holds at Acceleration with strong social signal (36 tweets) but low star counts (39) — opportunity is in building, not talking
 - DePIN still early (17 tweets, 4 repos) — watching for developer activity to confirm
 
+### Narrative Evolution (Feb 9 → Feb 13)
+
+Running the tool on multiple dates shows how narratives shift in real-time:
+
+| Narrative | Feb 9 Stage | Feb 13 Stage | Score Δ | What changed |
+|-----------|-------------|-------------|---------|--------------|
+| AI Agent Economy | Peak | Acceleration | 91→82 | Hype cooling, builder activity sustaining |
+| Dev Tooling for Solana | Emergence | Emergence | 61→75 | Stars surged (+237), devs shipping faster |
+| Agent Commerce | Peak | Emergence | 81→72 | Social hype fading, repos still growing |
+| Privacy Infrastructure | Acceleration | Acceleration | 67→64 | Steady — Arcium/GhostWareOS still building |
+| Restaking & LSTs | Acceleration | Acceleration | 72→73 | Stable, Fragmetric gaining traction |
+| DePIN Growth | Emergence | Emergence | 40→45 | Slight uptick, still watching |
+| Cross-chain | — | Emergence | —→16 | **New signal** detected |
+
+This is the core value: not just "what's trending" but "how is the trend evolving?" Narratives cooling from Peak to Acceleration signal different opportunities than ones heating up from Emergence.
+
 ## Build Ideas (Latest)
 
 Each narrative generates 3-5 build ideas with difficulty ratings, grounded in the actual signals detected. These aren't generic suggestions — they're derived from what's being discussed and built RIGHT NOW. Here are highlights:
