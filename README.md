@@ -161,57 +161,61 @@ narrative-scope/
 
 **web-output.ts**: Renders detected narratives as a responsive, dark-themed HTML page. Each narrative shows metrics, top signals (tweets + repos), key terms, and actionable build ideas with difficulty ratings.
 
-## Live Demo
+## Demo
 
-**Hosted tool:** [http://64.225.63.234:3456/](http://64.225.63.234:3456/)
+Run locally after cloning:
+
+```bash
+bun src/run.ts --serve   # generates fresh data + serves at http://localhost:3456
+```
 
 Interactive HTML dashboard with all detected narratives, signal breakdowns, top tweets/repos, and build ideas. JSON API at `/api.json`.
 
 ## Detected Narratives (Latest Output)
 
-From a Feb 9, 2026 live scan (148 tweets, 184 repos analyzed):
+From a Feb 13, 2026 live scan (133 tweets, 242 repos analyzed):
 
 | Narrative | Stage | Score | Tweets | Repos | Stars | Confidence |
 |-----------|-------|-------|--------|-------|-------|-----------|
-| AI Agent Economy | Peak | 91 | 42 | 58 | 240 | 95% |
-| Agent Commerce | Peak | 81 | 19 | 56 | 120 | 95% |
-| Restaking & LSTs | Acceleration | 72 | 7 | 29 | 93 | 81% |
-| Privacy Infrastructure | Acceleration | 67 | 40 | 53 | 41 | 95% |
-| Dev Tooling for Solana | Emergence | 61 | 2 | 47 | 252 | 57% |
-| DePIN Growth | Emergence | 40 | 15 | 2 | 0 | 80% |
+| AI Agent Economy | Acceleration | 82 | 50 | 61 | 190 | 95% |
+| Dev Tooling for Solana | Emergence | 75 | 5 | 42 | 237 | 81% |
+| Restaking & LSTs | Acceleration | 73 | 6 | 29 | 112 | 81% |
+| Agent Commerce | Emergence | 72 | 15 | 56 | 132 | 95% |
+| Privacy Infrastructure | Acceleration | 64 | 36 | 50 | 39 | 90% |
+| DePIN Growth | Emergence | 45 | 17 | 4 | 0 | 88% |
+| Cross-chain | Emergence | 16 | 4 | 0 | 0 | 49% |
 
 **What the stages tell you:**
-- AI Agent Economy and Agent Commerce are at **Peak** — widespread awareness, many unique voices. Still opportunity in infrastructure/tooling but the narrative is mature
-- Dev Tooling scores 61 despite only 2 tweets — that's 252 GitHub stars across 47 new repos. Builders are active, social hasn't caught up yet. This is the kind of signal that matters: developer conviction ahead of social hype
-- Privacy is interesting at Acceleration — 40 tweets but only 41 stars. Lots of talk, less building. The opportunity is in execution
-- DePIN shows social buzz (15 tweets) but only 2 new repos. Early signal worth watching
+- AI Agent Economy dropped from Peak to **Acceleration** — narrative cooling from its Feb 9 peak. Still dominant but the initial hype wave is settling into sustained builder activity (61 repos, 190 stars)
+- Dev Tooling jumped to 75 (was 61) — 237 stars across 42 repos shows strong developer conviction. Social is still quiet (5 tweets) but builders are shipping
+- Cross-chain is a new emergence signal — early cross-ecosystem infrastructure appearing alongside Solana-native development
+- Privacy Infrastructure holds at Acceleration with strong social signal (36 tweets) but low star counts (39) — opportunity is in building, not talking
+- DePIN still early (17 tweets, 4 repos) — watching for developer activity to confirm
 
 ## Build Ideas (Latest)
 
 Each narrative generates 3-5 build ideas with difficulty ratings, grounded in the actual signals detected. These aren't generic suggestions — they're derived from what's being discussed and built RIGHT NOW. Here are highlights:
 
-**AI Agent Economy (Peak, Score 91)**
-- Agent Credit Scoring Protocol — on-chain reputation tracking agent transaction history and success rates. Signal data shows "credit" as a key term and agents "funding their own keys" (medium)
-- Agent-to-Agent Escrow Service — smart contracts for autonomous agent transactions with dispute resolution based on verifiable outcomes. Agents now managing payments across 700+ markets (medium)
-- Agent Skill Analytics Dashboard — real-time monitoring of the skills marketplace showing capability success rates and ROI (easy)
+**AI Agent Economy (Acceleration, Score 82)**
+- Agent Treasury Dashboard — real-time monitoring and analytics for AI agent wallets, treasury movements, and on-chain behavior patterns (medium)
+- x402 Payment Gateway SDK — developer-friendly SDK simplifying x402 protocol integration for Solana apps, enabling autonomous agent payments (medium)
+- Agent Identity Verification Registry — on-chain registry for verifying agent identities and capabilities, addressing the trust gap as agents get autonomous credit (hard)
 
-**Agent Commerce (Peak, Score 81)**
-- Agent Reputation Oracle — onchain reputation scoring based on x402 transaction history and credit repayment. Agents getting autonomous credit lines need trustless creditworthiness assessment (medium)
-- Agent Service Marketplace — decentralized discovery for agent-to-agent services using x402 payments. 56 new repos but no central discovery mechanism (medium)
+**Dev Tooling for Solana (Emergence, Score 75)**
+- Agent Wallet SDK — purpose-built wallet library for AI agents with autonomous transaction signing, risk limits, and multi-sig controls (medium)
+- Privacy Mixer for Agent Transactions — lightweight privacy protocol for AI agent transactions on Solana, following the week's focus on on-chain privacy (hard)
 
-**Privacy Infrastructure (Acceleration, Score 67)**
-- Private Payroll Protocol — Solana program using Arcium MPC for DAO payroll that hides individual salaries while proving budget compliance (hard)
-- Privacy Score Dashboard — scores wallets on privacy exposure, suggests remediation using emerging stack (Arcium, GhostWareOS) (medium)
+**Restaking & LSTs (Acceleration, Score 73)**
+- LST Yield Aggregator Dashboard — real-time analytics comparing yields across Solana's LST protocols and new restaking opportunities like Fragmetric (easy)
+- Restaking Strategy AI Agent — autonomous agent that monitors LST positions and automatically rebalances between protocols based on yield changes (medium)
 
-**Dev Tooling for Solana (Emergence, Score 61)**
-- Anchor Copilot VSCode Extension — intelligent autocomplete and code generation for Anchor, trained on top Solana programs (medium)
-- Stablecoin Payment SDK — lightweight TypeScript SDK for Solana stablecoin payments with wallet connection and swap routing (easy)
+**Agent Commerce (Emergence, Score 72)**
+- Agent API Marketplace — marketplace where developers list APIs that AI agents can discover and pay for using x402 payments (medium)
+- Agent Spend Analytics Dashboard — tracks the 38M+ agent transactions on Solana, categorizing spending patterns and wallet behavior (easy)
 
-**Restaking & LSTs (Acceleration, Score 72)**
-- AI Agent LST Rebalancer — autonomous agent toolkit for managing LST portfolios, monitoring validator performance, auto-rebalancing (medium)
-
-**DePIN Growth (Emergence, Score 40)**
-- DePIN Node Registry SDK — Solana program + TypeScript SDK for registering and verifying physical nodes on-chain with location proofs (medium)
+**Privacy Infrastructure (Acceleration, Score 64)**
+- PrivateDEX Aggregator — routes trades through privacy layers like Arcium and GhostSend, showing privacy scores per route (medium)
+- Wallet Privacy Scorer — browser extension scoring Solana wallets on privacy exposure based on transaction patterns (easy)
 
 ## Reproduction
 
